@@ -55,7 +55,7 @@ countyfips[countyfips$statename=="oregon",]
 
 ### The county fips code is the last three characters
 county.f<-"001"
-county.n<-c("deschutes","crook")
+county.n<-c("deschutes","crook county")
 
 ## Pull out these counties
 c1<-county(fips=county.f,state="or",level="tract")

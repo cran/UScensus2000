@@ -41,6 +41,23 @@ return(out)
 }
 ########### Function to pullout counties
 
+
+########### Function to handle county names
+check.county.name<-function(name){
+	
+	            name<-tolower(name)
+                link <- countyfips$countyname
+                # state
+                fips <- countyfips$fips[which(regexpr(name,link) > 0 & state==countyfips$statename)]
+                
+                if(identical(fips, character(0)))
+                	fips<-NULL
+                
+                return(fips)
+	}
+########### Function to handle county names
+
+
 ########### Check on sp object
 
 if(is.null(sp.object)==FALSE & class(sp.object)[1]!="SpatialPolygonsDataFrame"){
@@ -62,14 +79,31 @@ if(!is.null(fips)){
 	
 	out<-build.county.shape(fips,state,sp.object)
 	}else{
-		fip.index<-countyfips$countyname%in%tolower(name) & countyfips$statename%in%tolower(state)
-		if(sum(fip.index)==0){
-			cat("Not a valid county name!")
-			return()
+		
+		if(length(name)>1){
+			fips<-vector(length=length(name))
+			for(i in 1:length(name)){
+				if(is.null(check.county.name(name[i]))==FALSE){
+					fips[i]<-check.county.name(name[i])
+				}else{
+						cat("Not a valid county name!")
+						return()
+				}
 			}
-	fips<-substr(countyfips$fips[fip.index],3,5)
-	out<-build.county.shape(fips,state,sp.object)
+			}else{
+				fips<-check.county.name(name)
+				if(is.null(fips)){
+					cat("Not a valid county name!")
+					return()
+					}
+			}
+out<-build.county.shape(substr(fips,3,5),state,sp.object)
 }
+		
+
+		
+
+
 
 ## Check proj
 if(is.null(proj)==FALSE){
