@@ -2,7 +2,7 @@
 \alias{check.state}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Internal function; 
+Internal Function
 }
 \description{
 For use internally.

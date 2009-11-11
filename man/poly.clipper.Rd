@@ -12,7 +12,7 @@ poly.clipper(name, state, statefips = FALSE, level = c("tract", "blk", "blkgrp")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{name}{a character string, this string must be the name of CDP for a given state.
+  \item{name}{a character string, this string must be the name of CDP for a given state (if statefips=TRUE then this must be a CDP fips code).
 }
   \item{state}{
 a character string, can either be the full name of a state (e.g. "oregon"), the abbreviation (e.g. "or"), or the FIPS code (e.g. "41")-- note that if you are using the FIPS code you have to change \code{statefips} to \code{TRUE}. This variable is insensitive to case.

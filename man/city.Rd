@@ -12,7 +12,7 @@ city(name, state, statefips = FALSE, sp.object = NULL, proj = NULL )
 }
 \arguments{
   \item{name}{
-  a character string, takes the value of a string or string vector and has to be the exact name or names of CDP(s). (If you are unsure of the exact name a quick way to find it is to load the \code{library(UScensus2000cdp)} and pull out the list of names for the state you are interested in (see example).
+  a character string, takes the value of a string or string vector and has to be the exact name or names of CDP(s). (If you are unsure of the exact name a quick way to find it is to load the \code{library(UScensus2000cdp)} and pull out the list of names for the state you are interested in (see example).Note: if statefips=TRUE then this must be a CDP fips code.
 }
   \item{state}{
 a character string, can either be the full name (e.g. "oregon"), the abbreviation (e.g. "or"), or the FIPS code (e.g. "41")-- note that if you are using the FIPS code you have to change \code{statefips} to \code{TRUE}.

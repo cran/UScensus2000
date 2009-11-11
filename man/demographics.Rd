@@ -29,7 +29,7 @@ logical (optional), if \code{level="msa"}, allows the use of the verbose MSA pla
 }
 %%\details{}
 \value{
-An object of class \code{\link[base:data.frame]{data.frame}}.
+An object of class \code{\link[base:matrix]{matrix}}.
 }
 \references{
 Census 2000 Summary File 1 [name of state1 or United States]/prepared by the U.S. Census 

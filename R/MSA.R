@@ -30,8 +30,7 @@ if(!is.null(state)){
 state<-check.state(state,statefips)
 
 if(is.null(state)){
-	cat("Not a State! \n")
-	return()
+	stop("Not a State! \n")
 	}
 ############Check state
 

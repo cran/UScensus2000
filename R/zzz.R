@@ -6,7 +6,7 @@
 # Written by Carter T. Butts <buttsc@uci.edu>; based on an original by
 # Carter T. Butts <buttsc@uci.edu>, David Hunter <dhunter@stat.psu.edu>,
 # and Mark S. Handcock <handcock@u.washington.edu>.
-# Last Modified 2/26/09
+# Last Modified 7/14/10
 # Licensed under the GNU General Public License version 3 or later
 #
 # Part of the R/census package
@@ -28,7 +28,7 @@
                " created on ",
                 substring(ehelp[5],first=16),".\n", sep=""))
     }
-    cat(paste("copyright (c) 2009, Zack W. Almquist, University of California-Irvine\n",sep=""))
+    cat(paste("copyright (c) 2010, Zack W. Almquist, University of California-Irvine\n",sep=""))
     cat('For citation information, type citation("UScensus2000").\n')
     cat('Type help(package="UScensus2000") to get started.\n')
 }

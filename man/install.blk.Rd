@@ -1,0 +1,36 @@
+\name{install.blk}
+\alias{install.blk}
+%- Also NEED an '\alias' for EACH other topic documented here.
+\title{
+Installer for the UScensus2000blk package.
+}
+\description{
+Convenient installer for the UScensus2000 package. Warning this installs from the source file for OS X and Linux and can take several minutes. Windows Binaries not available at this time.%Only 32 bit windows build available at this time.
+}
+\usage{
+install.blk(x)
+}
+%- maybe also 'usage' for other objects documented here.
+\arguments{
+  \item{x}{a character string, must be either "osx:, "linux" or "windows:
+}
+}
+%\details{
+%%  ~~ If necessary, more details than the description above ~~
+%}
+\author{
+Zack W Almquist
+}
+\section{Warning }{
+This is an extremely large file (around 2 gigs) and should only be installed if you have a very good connection. Also it is worth noting that for OS X and Linux the install is from source and can take a bit of time to install.
+} 
+
+\examples{
+\dontrun{
+install.blk("osx")
+}
+}
+% Add one or more standard keywords, see file 'KEYWORDS' in the
+% R documentation directory.
+\keyword{ ~kwd1 }
+\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
