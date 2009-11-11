@@ -53,7 +53,7 @@ if(length(unique(state))==1){
 	out<-county(fips=unique(fips),state=state[1],level=level,statefips=TRUE)
 	return(out)
 }else{
-	fips<-unique(fips)
+	#fips<-unique(fips)
 	state.u<-unique(state)
 	
  out<-county(fips=fips[which(state==state.u[1])],state=state.u[1],level=level,statefips=TRUE)

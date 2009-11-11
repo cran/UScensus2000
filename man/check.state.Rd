@@ -5,7 +5,7 @@
 Internal function; 
 }
 \description{
-For use in
+For use internally.
 }
 \usage{
 check.state(state, statefips)

@@ -86,7 +86,7 @@ return(out)
 ## Helper function for handling coloring of the map
 ############################################
 
-colors.use<-color.map(portland,as.numeric(portland@data$pop2000))
+colors.use<-color.map(portland,portland$pop2000)
 plot(portland,col=colors.use$colors)
 #text(coordinates(alabama.blk),alabama.blk@data$name,cex=.3)
 title(main="Census Tracts of\n Portland Oregon, 2000", sub="Quantiles (equal frequency)")

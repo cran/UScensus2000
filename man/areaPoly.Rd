@@ -69,8 +69,7 @@ return(out)
 
 data(oregon.tract)
 
-###Convert demographics to numeric
-oregon.tract<-demToNum(oregon.tract)
+
 
 
 
