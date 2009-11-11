@@ -2,29 +2,33 @@
 \alias{county}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Grab one or more counties in a given state
+Selects one or more counties in a given state
 }
 \description{
 \code{county} allows the user to pull out the polygon and metadata of one or more county(s) from a given state.
 }
 \usage{
-county(fips = NULL, name = NULL, state, level = c("tract", "blk", "blkgrp"), statefips = FALSE)
+county(fips = NULL, name = NULL, state, level = c("tract", "blk", "blkgrp"), statefips = FALSE, sp.object=NULL, proj=NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{fips}{Takes a string of three characters (i.e. a county FIPS code (e.g. "001").
+  \item{fips}{a character string, takes a string of three characters (i.e. a county FIPS code (e.g. "001").
 }
   \item{name}{
-Takes in a string. This must be the name of an actual county in the state (e.g. "Baker" county Oregon). This variable is insensitive to case.
+a character string, this must be the name of an actual county in the state (e.g. "Baker" county Oregon). This variable is insensitive to case.
 }
-  \item{state}{
-This has to be a string and can either be the full name (e.g. "oregon"), the abbreviation (e.g. "or"), or the FIPS code (e.g. "41")-- note that if you are using the FIPS code you  have to change \code{statefips} to \code{TRUE}. This variable is insensitive to case.
+  \item{state}{a character string, can either be the full name (e.g. "oregon"), the abbreviation (e.g. "or"), or the FIPS code (e.g. "41")-- note that if you are using the FIPS code you  have to change \code{statefips} to \code{TRUE}. This variable is insensitive to case.
 }
   \item{level}{
-Takes in one of three values: "tract", "blk",  or "blkgrp". This defines the geographic level of data for the county.
+a character string, takes in one of three values: "tract", "blk",  or "blkgrp". This defines the geographic level of data for the county.
 }
   \item{statefips}{
-logical: are you providing \code{state} with a FIPS code instead of a name. By default, \code{statefips}=\code{FALSE}.
+logical, by default \code{statefips=FALSE}, change to \code{TRUE} when providing \code{state} with a FIPS code.
+}
+\item{sp.object}{\code{
+SpatialPolygonsDataFrame}, default \code{NULL}, allows the user to provide an sp object in which to perform this operation; primarily for use with \code{demographics.add}.
+}
+\item{proj}{ CRS-class, takes a CRS object (e.g. CRS("+proj=utm +zone=10 +datum=NAD83") ); This is simply a wrapper for the \code{spTransform} function in \code{rgdal} . WARNING requires \code{\link[rgdal:spTransform]{rgdal}} package.
 }
 }
 %\details{}

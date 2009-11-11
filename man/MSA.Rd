@@ -2,27 +2,32 @@
 \alias{MSA}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Grab one MSA from a given state.
+Selects one MSA from a given state.
 }
 \description{
 \code{MSA} allows the user to pull out the polygon and metadata of one MSA from any given state for any of three levels: tract, blockgroup, or block.
 }
 \usage{
-MSA(msafips = NULL, msaname = NULL, state=NULL ,level = c("tract", "blk", "blkgrp"))
+MSA(msafips = NULL, msaname = NULL, state=NULL , statefips=FALSE, level = c("tract", "blk", "blkgrp"), proj = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{msafips}{Takes the value of a string. This needs to be the four digit MSA FIPS code (e.g. "0040" of Texas).
-}
-  \item{msaname}{Takes the value of a string. This can either be in conjunction with the variable \code{state} or not. Case 1: Full MSA name (does not require state to be defined) (e.g.  "Abilene, TX MSA"). Case 2: takes one of the city names of the MSA and the state which contains the MSA  (e.g. \code{msaname}="Albany" and \code{state}= "NY"; note that in this case the city must be capitalized followed by lowercase letters and the state must be in capitals). 
+  \item{msafips}{
+  a character string, takes a four digit MSA FIPS code (e.g. "0040" of Texas)
+  }
+  \item{msaname}{
+a character string, this can either be in conjunction with the variable \code{state} or not. Case 1: Full MSA name (\code{state} should be left \code{NULL} in this case) (e.g. "Abilene, TX MSA"); this must be exact. Case 2: takes one of the city names of the MSA and the one of the states which contain the MSA (e.g. \code{msaname}="Albany" and \code{state}= "NY").
 }
 \item{state}{
-Takes in a two character string. Specifically this takes in a state abbreviation in capitals in conjunction with \code{msaname}, see above for more details. 
+a character string, this takes in a state abbreviation in capitals in conjunction with \code{msaname}, see above for more details.
+}
+\item{statefips}{ logical, by default \code{statefips=FALSE}, change to \code{TRUE} when providing \code{state} with a FIPS code.
 }
   \item{level}{
-Takes in one of three values: "tract", "blk",  or "blkgrp". This defines the geographic level of data for the MSA.
+a character string, takes in one of three values: "tract", "blk", or "blkgrp". This defines the geographic level of data for the MSA.
 }
-
+\item{proj}{ CRS-class, takes a CRS object (e.g. CRS("+proj=utm +zone=10 +datum=NAD83") ); This is simply a wrapper for the \code{spTransform} function in \code{rgdal} . WARNING requires \code{\link[rgdal:spTransform]{rgdal}} package.
+}
 }
 %%\details{}
 \value{
@@ -51,7 +56,11 @@ data(MSAfips)
 ## Save the FIPS code for Abilene, TX MSA
 ab.fips<-MSAfips$msa.cmsa.fips[1]
 
+###Use the MSA FIPS code
 Abilene<-MSA(msafips=ab.fips,level="tract")
+
+###USe the MSA full name
+Abilene<-MSA(msaname="Abilene, TX MSA",level="tract")
 
 ##Use the msaname alternative
 portland<-MSA(msaname="Portland",state="OR",level="tract")

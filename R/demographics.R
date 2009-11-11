@@ -4,31 +4,36 @@ function(dem="pop2000",state,statefips=FALSE,level=c("tract","blk","blkgrp","cdp
 demographics.aux <-
 function(dem="pop2000",state,statefips=FALSE,level=c("tract","blk","blkgrp","cdp","msa","county"), msaname=NULL){
 
-data("countyfips",envir = parent.frame())
-assign("temp",countyfips)
-#rm(countyfips,envir = .GlobalEnv)
-assign("countyfips",temp)
+
+
 state2<-state
-	if(!statefips){
-	if(nchar(state)==2){
-		temp<-countyfips$statename[countyfips$acronym==tolower(state)][1]
-		if(is.na(temp)){
-			state<-countyfips$statename[substr(countyfips$fips,1,2)==state][1]
-			}else{
-				state<-temp
-			}
-		}
-}
-	
-	dem.fun<-function(dem,state,level){
+
+############Check state
+state<-check.state(state,statefips)
+
+if(is.null(state)){
+	cat("Not a State! \n")
+	return()
+	}
+############Check state
+
+
+
+### Grab demographics	
+dem.fun<-function(dem,state,level){
+	#if(is.null(sp.object)){
 	require(paste("UScensus2000",level,sep=""),character.only=TRUE)
 	x<-paste(state,level,sep=".")
 	data(list=x,envir = parent.frame())
-	assign(x,get(x))
 	temp<-get(x)
+	#}else{
+	#temp<-sp.object
+	#	}
 	out<-temp@data[,dem]
 	return(out)
 	}
+### Grab demographics
+
 
 if(level=="county"){
 	out<-dem.fun(dem,state,"tract")
@@ -111,11 +116,7 @@ if(level=="county"){
 
 }
 
-if(level=="msa"){
-	}else if(level=="county"){
-		}else{
-#rm(list=paste(state,level,sep="."),envir = .GlobalEnv)
-}
+
 out
 }
 out<-demographics.aux(dem, state,statefips,level, msaname)

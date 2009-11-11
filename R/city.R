@@ -1,45 +1,53 @@
 
 
 
-city<-function(name=NULL,state=NULL,statefips=FALSE){
+city<-function(name=NULL,state=NULL,statefips=FALSE,sp.object=NULL,proj=NULL){
 	
 
-city.aux<-function(name=NULL,state=NULL,statefips=FALSE){
+city.aux<-function(name=NULL,state=NULL,statefips=FALSE,sp.object=NULL,proj=NULL){
+
+
+############Check state
+state<-check.state(state,statefips)
+
+if(is.null(state)){
+	cat("Not a State! \n")
+	return()
+	}
 ############Check state
 
-data("countyfips",envir = parent.frame())
-assign("temp",countyfips)
-#rm(countyfips,envir = .GlobalEnv)
-assign("countyfips",temp)
-############Check state
-if(!statefips){
-	if(nchar(state)==2){
-		temp<-countyfips$statename[countyfips$acronym==tolower(state)][1]
-		if(is.na(temp)){
-			state<-countyfips$statename[substr(countyfips$fips,1,2)==state][1]
-			}else{
-				state<-temp
-			}
+
+
+############load CDP file (if necessary) or rename given sp-object
+if(is.null(sp.object)==FALSE){
+	
+	####Check to make sure it was passed and sp-object
+	if(class(sp.object)[1]!="SpatialPolygonsDataFrame"){
+		cat("Not a SpatialPolygonsDataFrame object! \n")
+		return()
 		}
-}
-
-
-############Check state
-
-############load CDP file (if necessary)
-
-if(paste(state,".cdp",sep="")%in%ls(envir=globalenv())){
+	assign(paste(state,".cdp",sep=""),sp.object)
 	}else{
 	data(list=paste(state,".cdp",sep=""),envir = parent.frame())
-	assign("temp",get(paste(state,".cdp",sep="")))
-#	rm(list=paste(state,".cdp",sep=""),envir = .GlobalEnv)
-	assign(paste(state,".cdp",sep=""),temp)
 }
-############load CDP file
+############load CDP file (if necessary) or rename given sp-object
+
 temp.cdp<-get(paste(state,".cdp",sep=""))
-
-
-out<-temp.cdp[which(tolower(temp.cdp$name)%in%tolower(name)==TRUE),]
+temp<- which(tolower(temp.cdp$name)%in%tolower(name)==TRUE)
+if(length(temp)==0){
+	cat(name,"is not in this SpatialPolygonsDataFrame object \n or this city does not exist in this state!")
+	return()
 	}
-out<-city.aux(name,state,statefips)
+	
+out<-temp.cdp[temp,]
+
+############ Check to see if we want to project this?
+if(is.null(proj)==FALSE){
+	require(rgdal)
+	out<-spTransform(out,proj)
+	}
+############
+out
+	}
+out<-city.aux(name,state,statefips,sp.object,proj)
 }

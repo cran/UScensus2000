@@ -1,6 +1,6 @@
 
-poly.clipper <-function(name,state,statefips=FALSE,level=c("tract","blk","blkgrp"),bb.epsilon=.006){
-poly.clipper.aux <-function(name,state,statefips=FALSE,level=c("tract","blk","blkgrp"),bb.epsilon=.006){
+poly.clipper <-function(name,state,statefips=FALSE,level=c("tract","blk","blkgrp"),bb.epsilon=.006,sp.object=NULL,proj=NULL){
+poly.clipper.aux <-function(name,state,statefips=FALSE,level=c("tract","blk","blkgrp"),bb.epsilon=.006,sp.object=NULL,proj=NULL){
 
 
 #name<-"portland"
@@ -13,35 +13,28 @@ poly.clipper.aux <-function(name,state,statefips=FALSE,level=c("tract","blk","bl
 city<-city(name,state,statefips)
 #######City
 
-data("countyfips",envir = parent.frame())
-assign("temp",countyfips)
-#rm(countyfips,envir = .GlobalEnv)
-assign("countyfips",temp)
+############Check state
+state<-check.state(state,statefips)
+
+if(is.null(state)){
+	cat("Not a State! \n")
+	return()
+	}
+############Check state
+
 #######Load baslevel
-if(!statefips){
-	if(nchar(state)==2){
-		temp<-countyfips$statename[countyfips$acronym==tolower(state)][1]
-		if(is.na(temp)){
-			state<-countyfips$statename[substr(countyfips$fips,1,2)==state][1]
-			}else{
-				state<-temp
-			}
-		}
-}
+
 require(paste("UScensus2000",level,sep=""),character.only=TRUE)
 
-if(paste(state,level,sep=".")%in%ls(envir=globalenv())){
-	x<-paste(state,level,sep=".")
+if(!is.null(sp.object)){
+	temp.level<-sp.object
 	}else{
 	x<-paste(state,level,sep=".")
-data(list=x,envir = parent.frame())
-assign("temp",get(x))
-#rm(list=x,envir = .GlobalEnv)
-assign(x,temp)
+	data(list=x,envir = parent.frame())
+	temp.level<-get(x)
 }
 
-assign("temp.level",get(x))
-#######Load baslevel
+#######Load baselevel
 
 #######converter function
 as.Polygons.gpc.poly <- function(x, ID) {
@@ -157,29 +150,8 @@ area1<-sapply(slot(ply.city.blk,"polygons"),slot, "area")
 area2<-sapply(slot(m2,"polygons"),slot, "area")
 
 
-names.of.cols<-c("pop2000",
-"white","black","ameri.es","asian",
-"hawn.pi", "other","mult.race","hispanic",
-"not.hispanic.t","nh.white","nh.black","nh.ameri.es",   
-"nh.asian","nh.hawn.pi","nh.other","hispanic.t",
-"h.white", "h.black","h.american.es","h.asian",
-"h.hawn.pi","h.other", "males","females",
-"age.under5","age.5.17","age.18.21","age.22.29",
-"age.30.39","age.40.49","age.50.64","age.65.up",
-"med.age", "med.age.m","med.age.f","households",
-"ave.hh.sz","hsehld.1.m","hsehld.1.f","marhh.chd",
-"marhh.no.c","mhh.child","fhh.child","hh.units",
-"hh.urban","hh.rural","hh.occupied","hh.vacant",
-"hh.owner","hh.renter","hh.1person","hh.2person",
-"hh.3person","hh.4person","hh.5person","hh.6person",
-"hh.7person","hh.nh.white.1p","hh.nh.white.2p","hh.nh.white.3p",
-"hh.nh.white.4p","hh.nh.white.5p","hh.nh.white.6p","hh.nh.white.7p",
-"hh.hisp.1p","hh.hisp.2p","hh.hisp.3p","hh.hisp.4p",
-"hh.hisp.5p","hh.hisp.6p","hh.hisp.7p","hh.black.1p",   
-"hh.black.2p","hh.black.3p","hh.black.4p","hh.black.5p",   
-"hh.black.6p","hh.black.7p","hh.asian.1p","hh.asian.2p",   
-"hh.asian.3p","hh.asian.4p","hh.asian.5p","hh.asian.6p",   
-"hh.asian.7p")
+names.of.cols<-names(temp.level)[which(names(temp.level)=="pop2000"):length(names(temp.level))]
+
 
 tempvalue<-as.numeric(m2@data[,names.of.cols[1]])
 newvalue<-ceiling((area1/area2)*tempvalue)
@@ -205,13 +177,14 @@ rownames(temp)<-sapply(slot(ply.city.blk,"polygons"),slot,"ID")
 
 
 ###########Rebuild datafiles
-
-
-
-ply.city.blk<-SpatialPolygonsDataFrame(ply.city.blk,data=temp)
-
-#return(ply.city.blk)
-####### Add population attributes
+out<-SpatialPolygonsDataFrame(ply.city.blk,data=temp)
+if(is.null(proj)==FALSE){
+	require(rgdal)
+	out<-spTransform(out,proj)
 }
-out<-poly.clipper.aux(name,state,statefips,level,bb.epsilon)
+
+out
+
+}
+out<-poly.clipper.aux(name,state,statefips,level,bb.epsilon,sp.object,proj)
 }

@@ -2,30 +2,34 @@
 \alias{poly.clipper}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Grab the block, block group, or tracts which are contained within a given CDP.
+Selects the block, block group, or tracts which are contained within a given CDP.
 }
 \description{
 \code{poly.clipper} allows the user to pull out all the blocks, block groups, or tracts that fall within the boundary of a given CDP and where the above grouping falls outside the boundaries  \code{poly.clipper} will output the intersection of the two polygons and estimate the demographic variables based on the area of the intersection.
 }
 \usage{
-poly.clipper(name, state, statefips = FALSE, level = c("tract", "blk", "blkgrp"), bb.epsilon = 0.006) 
+poly.clipper(name, state, statefips = FALSE, level = c("tract", "blk", "blkgrp"), bb.epsilon = 0.006, sp.object = NULL, proj = NULL) 
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{name}{Takes in a string. This must be the name of CDP for a given state.
+  \item{name}{a character string, this string must be the name of CDP for a given state.
 }
   \item{state}{
-This has to be a string and can either be the full name (e.g. "oregon"), the abbreviation (e.g. "or"), or the FIPS code (e.g. "41")-- note that if you are using the FIPS code you  have to change \code{statefips} to \code{TRUE}. This variable is insensitive to case.
+a character string, can either be the full name of a state (e.g. "oregon"), the abbreviation (e.g. "or"), or the FIPS code (e.g. "41")-- note that if you are using the FIPS code you have to change \code{statefips} to \code{TRUE}. This variable is insensitive to case.
 }
   \item{statefips}{
-logical: are you providing \code{state} with a FIPS code instead of a name. By default, \code{statefips}=\code{FALSE}.
+ logical, by default \code{statefips=FALSE}, change to \code{TRUE} when providing \code{state} with a FIPS code.
 }
   \item{level}{
-Takes in one of three values: "tract", "blk",  or "blkgrp". This defines the geographic level of data for the county.
+character string, takes in one of three values: "tract", "blk", or "blkgrp". This defines the geographic level of data for the county.
 }
-  \item{bb.epsilon}{Takes in a numerical value. This value controls the number of blocks/block groups/tracts which are considered for clipping; if the function is not selecting some blocks/block groups/tracts then consider using a large value for \code{bb.epsilon}. Default \code{bb.epsilon} = 0.006.
+  \item{bb.epsilon}{numeric, by default \code{bb.epsilon = 0.006}, this value controls the number of Blocks/Block Groups/Tracts which are considered for clipping; if the function is not selecting some Blocks/Block Groups/Tracts then consider using a large value for \code{bb.epsilon}.
 }
-
+\item{sp.object}{\code{
+SpatialPolygonsDataFrame}, default \code{NULL}, allows the user to provide an sp object in which to perform this operation; primarily for use with \code{demographics.add}.
+}
+\item{proj}{ CRS-class, takes a CRS object (e.g. CRS("+proj=utm +zone=10 +datum=NAD83") ); This is simply a wrapper for the \code{spTransform} function in \code{rgdal} . WARNING requires \code{\link[rgdal:spTransform]{rgdal}} package.
+}
 }
 %%\details{}
 \value{

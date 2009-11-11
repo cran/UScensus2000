@@ -2,7 +2,7 @@
 \alias{demographics}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Grabs specified demographic meta-data from the sp objects.
+Selects a specified demographic meta-data from the sp objects.
 }
 \description{
 \code{demographics} allows the user to pull out one or more demographic variables at several different geographic levels.
@@ -12,18 +12,19 @@ demographics(dem = "pop2000", state, statefips=FALSE, level = c("tract", "blk", 
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{dem}{ Character string or vector. Must be the actual name of demographic variables attached to \code{UScensus2000} objects. Default \code{dem} = "pop2000"
+  \item{dem}{ Character string or vector. Must be the actual name of the demographic variables attached to \code{UScensus2000} objects. Default \code{dem} = "pop2000"
 }
   \item{state}{
-This has to be a string and can either be the full name (e.g. "oregon"), the abbreviation (e.g. "or"), or the FIPS code (e.g. "41")-- note that if you are using the FIPS code you  have to change \code{statefips} to \code{TRUE}. This variable is insensitive to case.
+a character string,  can either be the full name of a state (e.g. "oregon"), the abbreviation (e.g. "or"), or the FIPS code (e.g. "41")-- note that if you are using the FIPS code you have to change statefips to \code{TRUE}. This variable is insensitive to case.
 }
   \item{statefips}{
-logical: are you providing \code{state} with a FIPS code instead of a name. By default, \code{statefips}=\code{FALSE}.
+logical, by default \code{statefips=FALSE}, set to \code{TRUE} if using the state FIPS codes.
 }
   \item{level}{
-Takes in one of six values: "tract", "blk", "blkgrp", "cdp","msa","county". This defines the geographic level of data for the county.
+a character string, takes levels \code{tract, blk, blkgrp, cdp, msa} or \code{county}
 }
-  \item{msaname}{Takes the value of a string. This can either be in conjunction with the variable \code{state} or not. Case 1: Full MSA name (does not require state to be defined) (e.g.  "Abilene, TX MSA"). Case 2: takes one of the city names of the MSA and the state which contains the MSA  (e.g. \code{msaname}="Albany" and \code{state}= "NY"; note that in this case the city must be capitalized followed by lowercase letters and the state must be in capitals). See also \code{\link{MSA}}.
+  \item{msaname}{
+logical (optional), if \code{level="msa"}, allows the use of the verbose MSA placename (capitalized).
 }
 }
 %%\details{}

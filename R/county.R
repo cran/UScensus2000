@@ -1,68 +1,84 @@
 county <-
-function(fips=NULL,name=NULL,state,level=c("tract","blk","blkgrp"),statefips=FALSE){
+function(fips=NULL,name=NULL,state,level=c("tract","blk","blkgrp"),statefips=FALSE,sp.object=NULL,proj=NULL){
 
 county.aux <-
-function(fips=NULL,name=NULL,state,level=c("tract","blk","blkgrp"),statefips=FALSE){
-###Load table with all the necessary county and fips info
+function(fips=NULL,name=NULL,state,level=c("tract","blk","blkgrp"),statefips=FALSE,sp.object=NULL,proj=NULL){
+
 data("countyfips",envir = parent.frame())
 assign("temp",countyfips)
-#rm(countyfips,envir = .GlobalEnv)
 assign("countyfips",temp)
+############Check state
+state<-check.state(state,statefips)
 
-if(!statefips){
-	if(nchar(state)==2){
-		temp<-countyfips$statename[countyfips$acronym==tolower(state)][1]
-		if(is.na(temp)){
-			state<-countyfips$statename[substr(countyfips$fips,1,2)==state][1]
-			}else{
-				state<-temp
-			}
-		}
-}
+if(is.null(state)){
+	cat("Not a State! \n")
+	return()
+	}
+############Check state
 	
 	
-
-build.county.shape<-function(fips,state){		
+########### Function to pullout counties
+build.county.shape<-function(fips,state,sp.object){		
 require(paste("UScensus2000",level,sep=""),character.only=TRUE)
 
-if(paste(state,level,sep=".")%in%ls(envir=globalenv())){
-	x<-paste(state,level,sep=".")
+if(is.null(sp.object)==FALSE){
+	temp<-sp.object
 	}else{
 	x<-paste(state,level,sep=".")
-data(list=x,envir = parent.frame())
-assign("temp",get(x))
-#rm(list=x,envir = .GlobalEnv)
-assign(x,temp)
-
+	data(list=x,envir = parent.frame())
+	temp<-get(x)
 }
 
 
-
-
-
-assign("temp",get(x))
 
 if(level=="blk"){
 	out<-temp[which(substr(temp$fips,1,3)%in%fips==TRUE),]
 	}else{
-out<-temp[which(temp$county%in%fips==TRUE),]
+	out<-temp[which(temp$county%in%fips==TRUE),]
 }
-
-
-
 
 return(out)
 }
+########### Function to pullout counties
+
+########### Check on sp object
+
+if(is.null(sp.object)==FALSE & class(sp.object)[1]!="SpatialPolygonsDataFrame"){
+		cat("Not a SpatialPolygonsDataFrame object! \n")
+		return()
+		}
+
+
+
+###########
+
 
 ######Case 1
 if(!is.null(fips)){
-	build.county.shape(fips,tolower(state))
+	if(sum(fips%in%substr(countyfips$fips,3,5))==0){
+			cat("Not a valid county FIPS!")
+			return()
+		}
+	
+	out<-build.county.shape(fips,state,sp.object)
 	}else{
-fips<-substr(countyfips$fips[countyfips$countyname%in%tolower(name) & countyfips$statename%in%tolower(state)],3,5)
-	build.county.shape(fips,tolower(state))
+		fip.index<-countyfips$countyname%in%tolower(name) & countyfips$statename%in%tolower(state)
+		if(sum(fip.index)==0){
+			cat("Not a valid county name!")
+			return()
+			}
+	fips<-substr(countyfips$fips[fip.index],3,5)
+	out<-build.county.shape(fips,state,sp.object)
 }
 
+## Check proj
+if(is.null(proj)==FALSE){
+	require(rgdal)
+	out<-spTransform(out,proj)
+}
+##check proj
+out
 }
 
-out<-county.aux(fips,name,state,level,statefips)
+out<-county.aux(fips,name,state,level,statefips,sp.object,proj)
 }

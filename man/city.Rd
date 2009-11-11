@@ -2,23 +2,28 @@
 \alias{city}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Grab  one or more CDP(s) from a given state
+Selects one or more CDP(s) from a given state
 }
 \description{
 \code{city} allows the user to pull out the polygon and metadata of one or more CDPs for any given state by name.
 }
 \usage{
-city(name, state, statefips = FALSE)
+city(name, state, statefips = FALSE, sp.object = NULL, proj = NULL )
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{name}{Takes the value of a string or string vector and has to be the exact name or names of CDP(s). (If you are unsure of the exact name a quick way to find it is to load the \code{library(UScensus2000cdp)} and pull out the list of names for the state you are interest in (see example).
+  \item{name}{
+  a character string, takes the value of a string or string vector and has to be the exact name or names of CDP(s). (If you are unsure of the exact name a quick way to find it is to load the \code{library(UScensus2000cdp)} and pull out the list of names for the state you are interested in (see example).
 }
   \item{state}{
-This has to be a string and can either be the full name (e.g. "oregon"), the abbreviation (e.g. "or"), or the FIPS code (e.g. "41")-- note that if you are using the FIPS code you  have to change \code{statefips} to \code{TRUE}.
+a character string, can either be the full name (e.g. "oregon"), the abbreviation (e.g. "or"), or the FIPS code (e.g. "41")-- note that if you are using the FIPS code you have to change \code{statefips} to \code{TRUE}.
 }
   \item{statefips}{
-logical: are you providing \code{state} with a FIPS code instead of a name. By default, \code{statefips}=\code{FALSE}.
+ logical, by default \code{statefips=FALSE}, change to \code{TRUE} when providing \code{state} with a FIPS code.
+}
+\item{sp.object}{\code{
+SpatialPolygonsDataFrame}, default \code{NULL}, allows the user to provide an sp object in which to perform this operation; primarily for use with \code{demographics.add}.
+}
+\item{proj}{ CRS-class, takes a CRS object (e.g. CRS("+proj=utm +zone=10 +datum=NAD83") ); This is simply a wrapper for the \code{spTransform} function in \code{rgdal} . WARNING requires \code{\link[rgdal:spTransform]{rgdal}} package.
 }
 }
 %%\details{}
