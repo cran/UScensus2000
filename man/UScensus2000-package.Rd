@@ -1,16 +1,16 @@
-\name{census2000-package}
-\alias{census2000-package}
-\alias{census2000}
+\name{UScensus2000-package}
+\alias{UScensus2000-package}
+\alias{UScensus2000}
 \docType{package}
 \title{
-Helper functions for the census2000-suite of packages
+Helper functions for the UScensus2000-suite of packages
 }
 \description{
-This package helps the user handle the spatial and demographic data available in \code{census2000tract}, \code{census2000cdp}, \code{census2000blkgrp}, and \code{census2000blk}
+This package helps the user handle the spatial and demographic data available in \code{UScensus2000tract}, \code{UScensus2000cdp}, \code{UScensus2000blkgrp}, and \code{UScensus2000blk}
 }
 \details{
 \tabular{ll}{
-Package: \tab census2000\cr
+Package: \tab UScensus2000\cr
 Type: \tab Package\cr
 Version: \tab 0.01\cr
 Date: \tab 2009-11-14\cr
@@ -26,7 +26,7 @@ Maintainer: Zack W. Almquist <almquist@uci.edu>
 \note{
 If you use this package and/or software manual in your work, a citation would be appreciated.  References to the current versions are:\cr
 
-Zack W. Almquist (2009). census2000: US Census 2000 Suite of R Packages. R package version 0.01.
+Zack W. Almquist (2009). UScensus2000: US Census 2000 Suite of R Packages. R package version 0.01.
 
 Please also cite the original data source \cr
 Census 2000 Summary File 1 [name of state1 or United States]/prepared by the U.S. Census 
@@ -34,6 +34,6 @@ Bureau, 2001.
 }
 
 %\references{}
-\keyword{uscensus2000}
+\keyword{usUScensus2000}
 %\seealso{}
 %\examples{}

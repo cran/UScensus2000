@@ -40,12 +40,12 @@ Bureau, 2001. \cr
 }
 %%\note{ }
 
-\section{Warning }{You must have the packages \code{census2000blkgrp} and \code{census2000blk} installed to use levels "blkgrp" and "blk" respectively.} 
+\section{Warning }{You must have the packages \code{UScensus2000blkgrp} and \code{UScensus2000blk} installed to use levels "blkgrp" and "blk" respectively.} 
 
 
 \seealso{
 \code{\link{city}} \cr
-% \code{\link[census2000cdp]{SpatialPolygonsDataFrame}}.
+% \code{\link[UScensus2000cdp]{SpatialPolygonsDataFrame}}.
 }
 \examples{
 

@@ -12,7 +12,7 @@ demographics(dem = "pop2000", state, statefips=FALSE, level = c("tract", "blk", 
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{dem}{ Character string or vector. Must be the actual name of demographic variables attached to \code{census2000} objects. Default \code{dem} = "pop2000"
+  \item{dem}{ Character string or vector. Must be the actual name of demographic variables attached to \code{UScensus2000} objects. Default \code{dem} = "pop2000"
 }
   \item{state}{
 This has to be a string and can either be the full name (e.g. "oregon"), the abbreviation (e.g. "or"), or the FIPS code (e.g. "41")-- note that if you are using the FIPS code you  have to change \code{statefips} to \code{TRUE}. This variable is insensitive to case.
@@ -37,7 +37,7 @@ Bureau, 2001. \cr
 }
 \author{Zack W. Almquist \email{almquist@uci.edu}}
 %\note{}
-\section{Warning }{You must have the packages \code{census2000blkgrp} and \code{census2000blk} installed to use levels "blkgrp" and "blk" respectively.
+\section{Warning }{You must have the packages \code{UScensus2000blkgrp} and \code{UScensus2000blk} installed to use levels "blkgrp" and "blk" respectively.
 } 
 
 \seealso{
