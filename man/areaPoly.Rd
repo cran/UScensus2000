@@ -21,7 +21,7 @@ areaPoly(sp.object=NULL)
 %%  ~~ If necessary, more details than the description above ~~
 %}
 \value{
-\code{\link[sp:SpatialPolygonsDataFrame]{SpatialPolygonsDataFrame}}
+a numeric vector.
 }
 \references{
 See \link[sp:SpatialPolygonsDataFrame]{SpatialPolygonsDataFrame}
