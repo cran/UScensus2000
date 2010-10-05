@@ -6,8 +6,15 @@ if(x=="osx" | x=="linux"){install.packages("UScensus2000blk", repos="http://disa
 	}
 
 if(x=="windows"){
-	stop("Not Available Yet")
-	}
+	rVer<-as.numeric(R.Version()$minor)
+	
+	if(rVer>=11){
+		install.packages("UScensus2000blk", repos="http://disasternets.calit2.uci.edu/census2000/R/",type="source")
+		return()
+		}else{stop("Not Available Yet")}
+}
 
+## Stop if x is misspecified
 stop("x must equal linux, osx or windows")
+
 }

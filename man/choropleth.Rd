@@ -2,7 +2,7 @@
 \alias{choropleth}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Chloropleth Mapping
+Choropleth Mapping
 }
 \description{
 A function geared to making choropleth maps easier to construct for the US Census Data.
