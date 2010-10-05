@@ -16,12 +16,15 @@
 ######################################################################
 
 .onLoad <- function(libname, pkgname){
-	DESCpath <- file.path(system.file(package="UScensus2000"), "DESCRIPTION")
-    info <- read.dcf(DESCpath)
-    cat('\nUScensus2000:', info[,"Title"], 
-        '\nVersion', info[,"Version"], 'created on', info[,"Date"], '\n') 
-    cat(paste("copyright (c) 2011, Zack W. Almquist, University of California-Irvine\n",sep=""))
-    cat('Type help(package="UScensus2000tract") to get started.\n\n')
-	cat('For citation information, type citation("UScensus2000tract").\n')
+dscr <- utils::packageDescription('UScensus2000')
+     packageStartupMessage("\n")
+     packageStartupMessage(paste('Package ',dscr$Package,': ',dscr$Title,"\n",
+               "Version ",dscr$Version,
+               " created on ", dscr$Date ,".\n", sep=""))
+    packageStartupMessage(paste("Zack Almquist, University of California-Irvine
+ne\n",sep=""))
+    packageStartupMessage('For citation information, type citation("UScensus2010").')
+    packageStartupMessage('Type help(package=UScensus2000) to get started.')
 }
+
 

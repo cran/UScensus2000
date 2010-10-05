@@ -1,4 +1,5 @@
-ca31cc778f6263ac21675f459aee1a6a *DESCRIPTION
+e381b8cfce32ab8223fb93570801761a *DESCRIPTION
+4fb7a83efb9cd539c56504aa68db8002 *NAMESPACE
 0f1928310917b7eb22e3c86b87bb47bf *R/MSA.R
 b56b9d571fe4f342338ee2395bdb4309 *R/areaPoly.R
 7488ac7ec1c2020445e9f381e0730e43 *R/check.state.R
@@ -7,11 +8,11 @@ b86c66be12564d6d4fd8ae858b46ebeb *R/choropleth.plot.R
 97a682e09534a5dbfe0aad727ec18fe5 *R/choropleth.spplot.R
 4e946f2ff7fa9beef3f46935202c0898 *R/city.R
 311ed522d2a45b5c96aefd0b407d38f5 *R/county.R
-1c72def58b6148b99ed10958cee4aefc *R/demographics.R
+0ca3acaba92da4eaa98dc1bbc0886931 *R/demographics.R
 9c5fc177b3c481dc01e5a99ce25edf9f *R/install.blk.R
 e2934494af93ae3849afcef1b0082f3c *R/nameTofips.R
-e6792f22218208ad417f4ad988bc4eb1 *R/poly.clipper.R
-5e5d83b283bf680dd5686a44b99bb5e4 *R/zzz.R
+c1120c5ec45a84f3c630031781780753 *R/poly.clipper.R
+25dd7892188e7e4bd3ce9a0b5407a26c *R/zzz.R
 96b389bd26e10b6994a84fc12b88266e *data/MSAfips.rda
 ea171bc3952ec1b11826bf6785cfd151 *data/MSAnames.rda
 a130b2e4a3780ca95680265475ea9522 *data/countyfips.rda

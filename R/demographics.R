@@ -18,71 +18,59 @@ demographics<-function (dem = "pop2000", state, statefips = FALSE, level = c("tr
             out<-as.matrix(out)
             return(out)
         }
-        if (level == "county") {
-        	data(list=paste(state, "tract", sep = "."))
-            temp <- get(paste(state, "tract", sep = "."))
-            temp$state<-as.character(temp$state)
+        removeDup<-function(temp){
+	temp$state<-as.character(temp$state)
             temp$county<-as.character(temp$county)
             temp$tract<-as.character(temp$tract)
             tract.fips <-temp$tract
             tract.fips[nchar(tract.fips) == 4] <- paste(temp$tract[nchar(tract.fips) == 4], "00", sep = "")
-            temp.names<-paste(temp$state,temp$county,tract.fips,sep = "")
-			d<-which(duplicated(temp.names))
-			temp<-temp[-d,]
-            county.u <- unique(temp$county)
-			out<-vector()
-			
-			for(i in 1:length(county.u)){
-			index<-temp$county%in%county.u[i]
-			tempD<-temp@data[index,dem]
-			tempD<-sapply(tempD,
-				function(x){
-					if(is.character(x)) x[1]
-					else sum(x)
-					})
-			out<-rbind(out,tempD)
-			}
-	data("countyfips",envir = parent.frame())
-	assign("temp",countyfips)
-	assign("countyfips",temp)
-	out<-as.matrix(out)
-	cfips<-substr(countyfips$fips[substr(countyfips$fips,3,5)%in%county.u & countyfips$statename%in%state],3,5)
-	cname<-countyfips$countyname[substr(countyfips$fips,3,5)%in%county.u & countyfips$statename%in%state]
-	m<-match(county.u,cfips)
-	rownames(out)<-cname[m]
+	  temp.names<-paste(temp$state,temp$county,tract.fips,sep = "")
+		d<-which(duplicated(temp.names))
+		temp<-temp[-d,]
+}
+
+ 
+        if (level == "county") {
+        	denv <- new.env()
+        	data(list=paste(state, "tract", sep = "."),envir=denv)
+            temp <- get(paste(state, "tract", sep = "."), envir=denv)
+			temp<-removeDup(temp)
+			temp@data<-temp@data[,c("state","county","tract",dem)]
+			stcty<-paste(as.character(temp$state),as.character(temp$county),sep="")
+			ctyNam<-unique(stcty)
+			if(length(dem)==1){
+								ctyDem<-matrix(sapply(ctyNam,function(x){sum(temp@data[which(x==stcty),4:NCOL(temp@data)])}),ncol=1)
+				colnames(ctyDem)<-dem
+			}else{
+			ctyDem<-t(sapply(ctyNam,function(x){apply(temp@data[which(x==stcty),4:NCOL(temp@data)],2,sum)}))}
+			data("countyfips",envir = denv)
+		nams<-get("countyfips", envir=denv)
+		cnam<-nams$countyname[match(ctyNam,nams$fips)]
+		out<-data.frame(fips=ctyNam,ctyDem,stringsAsFactors =FALSE)
+		rownames(out)<-cnam	
         }
         else if (level == "msa") {
-            temp <- MSA(msaname = msaname, state = toupper(state2),level = "tract")
-            temp$state<-as.character(temp$state)
-            temp$county<-as.character(temp$county)
-            temp$tract<-as.character(temp$tract)
-            tract.fips <-temp$tract
-            tract.fips[nchar(tract.fips) == 4] <- paste(temp$tract[nchar(tract.fips) == 4], "00", sep = "")
-            temp.names<-paste(temp$state,temp$county,tract.fips,sep = "")
-			d<-which(duplicated(temp.names))
-			temp<-temp[-d,]
-			county.u <- unique(temp$county)
-			out<-vector()
-			
-			for(i in 1:length(county.u)){
-			index<-temp$county%in%county.u[i]
-			tempD<-temp@data[index,dem]
-			tempD<-sapply(tempD,
-				function(x){
-					if(is.character(x)) x[1]
-					else sum(x)
-					})
-			out<-rbind(out,tempD)			
-			}
-	data("countyfips",envir = parent.frame())
-	assign("temp",countyfips)
-	assign("countyfips",temp)
-			out<-as.matrix(out)
-			cfips<-substr(countyfips$fips[substr(countyfips$fips,3,5)%in%county.u & countyfips$statename%in%state],3,5)
-			cname<-countyfips$countyname[substr(countyfips$fips,3,5)%in%county.u & countyfips$statename%in%state]
-			m<-match(county.u,cfips)
-			rownames(out)<-cname[m]
-			
+			temp <- MSA(msaname = msaname, state = toupper(state2),level = "tract")
+			#dem=c("pop2000", "hh.units", "households")
+			#dem="pop2000"
+			#temp <- MSA(msaname = "washington", state = "va",level = "tract")
+			temp<-removeDup(temp)
+			temp@data<-temp@data[,c("state","county","tract",dem)]
+			stcty<-paste(as.character(temp$state),as.character(temp$county),sep="")
+			ctyNam<-unique(stcty)
+			if(length(dem)==1){
+				ctyDem<-matrix(sapply(ctyNam,function(x){sum(temp@data[which(x==stcty),4:NCOL(temp@data)])}),ncol=1)
+				colnames(ctyDem)<-dem
+			}else{
+			ctyDem<-t(sapply(ctyNam,function(x){apply(temp@data[which(x==stcty),4:NCOL(temp@data)],2,sum)}))}
+
+			denv <- new.env()
+			data("countyfips",envir = denv)
+
+			nams<-get("countyfips", envir=denv)
+			cnam<-nams$countyname[match(ctyNam,nams$fips)]
+			out<-data.frame(fips=ctyNam,ctyDem,stringsAsFactors =FALSE)
+			rownames(out)<-cnam			
         }
         else if (level == "tract") {
             out <- dem.fun(dem, state, level)

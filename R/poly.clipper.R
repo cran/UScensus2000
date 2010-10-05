@@ -35,7 +35,7 @@ poly.clipper<-function (name, state, statefips = FALSE, level = c("tract",
         temp1[2, 2] <- temp1[2, 2] + bb.epsilon
         temp <- matrix(c(temp1[1, 1], temp1[2, 1], temp1[1, 2], 
             temp1[2, 1], temp1[1, 2], temp1[2, 2], temp1[1, 1], 
-            temp1[2, 2]), nc = 2, nr = 4, byrow = TRUE)
+            temp1[2, 2]), ncol = 2, nrow = 4, byrow = TRUE)
         temp.gcp <- as(temp, "gpc.poly")
         temp.pb <- as.Polygons.gpc.poly(temp.gcp, "temp.gcp1")
         test10 <- SpatialPolygons(list(temp.pb), proj4string = CRS("+proj=longlat +datum=NAD83"))
