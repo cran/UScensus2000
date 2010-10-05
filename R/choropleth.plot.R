@@ -1,5 +1,5 @@
 choropleth.plot <-
-function(sp,dem="pop2000",cuts=list("quantile",seq(0, 1, 0.25)),color=list(fun="hsv",attr=list(h = c(.4,.5,.6,.7), s = .6, v = .6, gamma = .6, alpha=1)),main=NULL,sub="Quantiles (equal frequency)",legend=list(pos="bottomleft",title="Population Count"),type=NULL,...){
+function(sp,dem="pop2000",cuts=list("quantile",seq(0, 1, 0.25)),color=list(fun="hsv",attr=list(h = c(.4,.5,.6,.7), s = .6, v = .6, alpha=1)),main=NULL,sub="Quantiles (equal frequency)",legend=list(pos="bottomleft",title="Population Count"),type=NULL,...){
 	
 color.map<- function(x,dem,y=NULL){
 	l.poly<-length(x@polygons)

@@ -8,7 +8,7 @@ Internal Function
 For internal use. 
 }
 \usage{
-choropleth.plot(sp, dem = "pop2000", cuts = list("quantile", seq(0, 1, 0.25)), color = list(fun = "hsv", attr = list(h = c(0.4, 0.5, 0.6, 0.7), s = 0.6, v = 0.6, gamma = 0.6, alpha = 1)), main = NULL, sub = "Quantiles (equal frequency)", legend = list(pos = "bottomleft", title = "Population Count"),type=NULL, ...)
+choropleth.plot(sp, dem = "pop2000", cuts = list("quantile", seq(0, 1, 0.25)), color = list(fun = "hsv", attr = list(h = c(0.4, 0.5, 0.6, 0.7), s = 0.6, v = 0.6, alpha = 1)), main = NULL, sub = "Quantiles (equal frequency)", legend = list(pos = "bottomleft", title = "Population Count"),type=NULL, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
