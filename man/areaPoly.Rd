@@ -24,7 +24,10 @@ areaPoly(sp.object=NULL)
 a numeric vector.
 }
 \references{
-See \link[sp:SpatialPolygonsDataFrame]{SpatialPolygonsDataFrame}
+
+Zack W. Almquist (2010). US Census Spatial and Demographic Data in R: The UScensus2000 Suite of Packages. Journal of Statistical Software, 37(6), 1-31. \url{http://www.jstatsoft.org/v37/i06/}. \cr \cr
+
+Also see: \link[sp:SpatialPolygonsDataFrame]{SpatialPolygonsDataFrame}
 }
 \author{
 Zack W. Almquist

@@ -25,10 +25,16 @@ Maintainer: Zack W Almquist <almquist@uci.edu>
 }
 \note{
 If you use this package and/or software manual in your work, a citation would be appreciated.  References to the current versions are:\cr
+\cr
+Preferred Citation for the Package: \cr \cr
+Zack W. Almquist (2010). US Census Spatial and Demographic Data in R: The UScensus2000 Suite of Packages. Journal of Statistical Software, 37(6), 1-31. \url{http://www.jstatsoft.org/v37/i06/}. \cr \cr
 
-Zack W Almquist (2009). UScensus2000: US Census 2000 Suite of R Packages. R package version 0.08.
+Package Citation: \cr \cr
+Zack W Almquist (2010). UScensus2000: US Census 2000 Suite of R Packages. R package version 1.00. \cr
 
-Please also cite the original data source and the \code{\link[sp]{sp}} and \code{maptools}. \cr
+Please also cite the original data source and the \code{\link[sp]{sp}} and \code{maptools}. 
+\cr \cr
+
 Census 2000 Summary File 1 [name of state1 or United States]/prepared by the U.S. Census 
 Bureau, 2001. 
 \cr  \cr

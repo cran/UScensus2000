@@ -32,6 +32,8 @@ logical (optional), if \code{level="msa"}, allows the use of the verbose MSA pla
 An object of class \code{\link[base:matrix]{matrix}}.
 }
 \references{
+Zack W. Almquist (2010). US Census Spatial and Demographic Data in R: The UScensus2000 Suite of Packages. Journal of Statistical Software, 37(6), 1-31. \url{http://www.jstatsoft.org/v37/i06/}. \cr \cr
+
 Census 2000 Summary File 1 [name of state1 or United States]/prepared by the U.S. Census 
 Bureau, 2001. \cr
 \url{http://www.census.gov/prod/cen2000/doc/sf1.pdf}
